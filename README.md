@@ -1,8 +1,10 @@
 # confluence_export_with_jira_issue_images #
 
+Cleans HTML exports of confulence pages so they can be converted to PDF.
+
 ## Confluence with Jira lists with images print cleaner. ##
 
-If you add a list of Jira issues with description onto a confulence page,
+If you add a list of Jira issues with description to a confulence page,
 and,
 there are images in the description.
 then
@@ -15,8 +17,7 @@ the browser and save it as a clean PDF page.
 
 
 ## how to ##
-
-1. Safe the page as html
+1. Save the page as html
 2. Put this script in the same folder
 3. Run the script. A copy of the HTML file will be made with only the desired content
 4. open in firefox, print to PDF.
