@@ -67,6 +67,35 @@ for fname in files:
     for jira_issue in jira_issues:
         jira_issue.set("style", "width: 100%;  overflow: visible;")
 
+
+    #grab all the rendered blocks
+    blocks = content.cssselect(".ak-renderer-extension")
+
+    print("scaling the table widths to 1000px to avoid text overflow")
+    for block in blocks:
+        new_style =""
+        style = block.get("style")
+        pairs = style.split(";")
+        for pair in pairs:
+            if pair.strip():
+                key, value = pair.split(":")
+                if key == "width":
+                    new_value = int(value.replace("px",""))
+                    if new_value > 1000:
+                        new_value = 1000
+                new_style = f"{key}: {new_value}px;"
+
+        block.set("style", new_style)
+
+    print("scaling down images to fit in the tables as necessary")
+    images = content.cssselect("img")
+    for image in images:
+        width = image.get("width")
+        height = image.get("height")
+        if width is not None and int(width) > 680:
+            image.set("width", "%s" % 680)
+            image.set("height", "%s" % int(int(height)*680/int(width)))
+
     #convert it all back to a string and put it into a new file with "output" in the file name
     string = lxml.html.tostring(content).decode("utf8")
     f = open("output %s" % fname, '+w')
