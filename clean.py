@@ -30,7 +30,7 @@ for fname in files:
     print(fname)
 
     #get all the text out of the file
-    f = open(fname,'+r')
+    f = open(fname,'+r', encoding="utf-8")
     html_txt = f.read()
     f.close
 
@@ -80,6 +80,8 @@ for fname in files:
             if pair.strip():
                 key, value = pair.split(":")
                 if key == "width":
+                    if "%" in value:
+                        continue
                     new_value = int(value.replace("px",""))
                     if new_value > 1000:
                         new_value = 1000
@@ -98,6 +100,6 @@ for fname in files:
 
     #convert it all back to a string and put it into a new file with "output" in the file name
     string = lxml.html.tostring(content).decode("utf8")
-    f = open("output %s" % fname, '+w')
+    f = open("output %s" % fname, '+w', encoding="utf-8")
     f.write(str(string))
     f.close()
